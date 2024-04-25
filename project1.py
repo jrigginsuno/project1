@@ -40,6 +40,9 @@ class VotingApp:
             rb = tk.Radiobutton(self.candidate_frame, text=candidate, variable=self.selected_candidate, value=candidate)
             self.selected_candidate.set(None)
             rb.pack(anchor="w")
+            
+        self.vote_button.pack_forget()
+        self.exit_button.pack_forget()
 
         self.submit_button = tk.Button(self.master, text="Submit", command=self.record_vote, state="disabled")
         self.submit_button.pack()
@@ -66,6 +69,9 @@ class VotingApp:
 
         self.candidate_frame.destroy()
         self.submit_button.destroy()
+        
+        self.vote_button.pack()
+        self.exit_button.pack()
 
     def update_main_menu(self):
         self.total_votes_label.config(text="Total Votes: {}".format(self.total_votes))
