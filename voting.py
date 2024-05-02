@@ -38,15 +38,3 @@ class Vote:
         :param index: Index of candidate to cast vote to.
         """
         self.__votes[index] += 1
-
-
-if __name__ == '__main__':
-    vote = Vote()
-    vote.add_vote(0)
-    vote.add_vote(1)
-    vote.add_vote(1)
-    vote.add_vote(2)
-    print(vote.get_total())
-
-    for _ in range(3):
-        print(_, vote.get_vote(_))
