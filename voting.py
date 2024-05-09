@@ -4,7 +4,7 @@ from typing import List, Tuple
 class Vote:
     def __init__(self) -> None:
         """
-        Method to set default values>
+        Method to set default values
         """
         self.__candidates: Tuple[str, str, str] = ('Bianca', 'Edward', 'Felicia')
         self.__votes: List[int] = [0, 0, 0]
