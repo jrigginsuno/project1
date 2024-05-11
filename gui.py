@@ -38,6 +38,11 @@ class Gui(tk.Tk):
             self.label_candidate.append(tk.Label(self.frame_header,
                                                  text=f'temp{_}'))
             self.label_candidate[_].pack()
+            
+        self.idLabel = tk.Label(self.frame_header, text="ID:")
+        self.idLabel.pack(side=tk.LEFT, padx=5, pady=10)
+        self.voterID = tk.Entry(self.frame_header, width=15)
+        self.voterID.pack(side=tk.LEFT, pady=10)
 
         self.frame_header.pack()
 
@@ -65,9 +70,20 @@ class Gui(tk.Tk):
             self.button_submit.config(state='disabled')
 
     def submit_vote(self):
-        self.vote.add_vote(self.selected_candidate.get())
-        self.update_votes()
-        self.selected_candidate.set(-1)
+#         self.vote.add_vote(self.selected_candidate.get())
+#         self.update_votes()
+#         self.selected_candidate.set(-1)
+        voter_id = self.voterID.get()
+        if self.vote.check_unique_voter_id(voter_id):
+            self.vote.save_vote(voter_id, self.selected_candidate.get())
+            self.update_votes()
+            self.selected_candidate.set(-1)
+            self.voterID.delete(0, tk.END)
+            self.idLabel.config(text="ID:")
+            self.enable_submit()  # Re-enable submit button
+        else:
+            self.idLabel.config(text="ENTER A UNIQUE ID")
+            self.button_submit.config(state='disabled')  # Keep button disabled if ID is not unique
 
     def update_votes(self):
         self.label_total.config(text=f'Total Votes: {self.vote.get_total()}')
